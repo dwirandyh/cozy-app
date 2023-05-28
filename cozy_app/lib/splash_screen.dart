@@ -1,4 +1,5 @@
 import 'package:cozy_app/Colors.dart';
+import 'package:cozy_app/home/home_screen.dart';
 import 'package:flutter/material.dart';
 
 class SplashScreenPage extends StatelessWidget {
@@ -61,7 +62,14 @@ class SplashScreenPage extends StatelessWidget {
                         backgroundColor: purplerColor,
                         textStyle: whiteTextStyle.copyWith(fontSize: 18),
                       ),
-                      onPressed: () {},
+                      onPressed: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => const HomeScreen(),
+                          ),
+                        );
+                      },
                       child: const Text("Explore Now"),
                     ),
                   )
