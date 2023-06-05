@@ -1,4 +1,5 @@
 import 'package:cozy_app/colors.dart';
+import 'package:cozy_app/detail/detail_page.dart';
 import 'package:flutter/material.dart';
 
 class Space {
@@ -43,7 +44,17 @@ class RecommendedSpace extends StatelessWidget {
           physics: const ClampingScrollPhysics(),
           scrollDirection: Axis.vertical,
           itemBuilder: (BuildContext context, int index) {
-            return _spaceCard(spaces[index]);
+            return InkWell(
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => const DetailPage(),
+                  ),
+                );
+              },
+              child: _spaceCard(spaces[index]),
+            );
           },
           separatorBuilder: (BuildContext context, int index) {
             return const SizedBox(height: 30);
