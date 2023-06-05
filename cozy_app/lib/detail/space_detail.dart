@@ -1,15 +1,24 @@
 import 'package:cozy_app/Colors.dart';
+import 'package:cozy_app/error/error_page.dart';
+import 'package:cozy_app/model/space.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class SpaceDetail extends StatelessWidget {
-  const SpaceDetail({Key? key}) : super(key: key);
+  Space space;
 
-  _launchUrl(String url) async {
+  SpaceDetail(this.space);
+
+  _launchUrl(BuildContext context, String url) async {
     Uri uri = Uri.parse(url);
     if (!await launchUrl(uri)) {
-      throw Exception("Can not launch ${url}");
+      Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (context) => const ErrorPage(),
+        ),
+      );
     }
   }
 
@@ -35,19 +44,19 @@ class SpaceDetail extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 _titleSection(),
-                SizedBox(
+                const SizedBox(
                   height: 30,
                 ),
                 _facilitySection(),
-                SizedBox(
+                const SizedBox(
                   height: 30,
                 ),
                 _photos(),
-                SizedBox(
+                const SizedBox(
                   height: 30,
                 ),
-                _location("Jln. Kappan Sukses No. 20\nPalembang"),
-                SizedBox(
+                _location(context),
+                const SizedBox(
                   height: 40,
                 ),
                 SizedBox(
@@ -55,14 +64,17 @@ class SpaceDetail extends StatelessWidget {
                   width: MediaQuery.of(context).size.width,
                   child: ElevatedButton(
                     onPressed: () {
-                      _launchUrl("tel:+62890832343");
+                      _launchUrl(context, "tel:${space.phone}");
                     },
-                    child: Text("Book Now"),
                     style: ElevatedButton.styleFrom(
                       foregroundColor: whiteColor,
                       backgroundColor: purplerColor,
                       textStyle: whiteTextStyle.copyWith(fontSize: 18),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(16),
+                      ),
                     ),
+                    child: const Text("Book Now"),
                   ),
                 )
               ],
@@ -81,15 +93,15 @@ class SpaceDetail extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
-              "Kuretakeso Hott",
+              space.name,
               style: blackTextStyle.copyWith(fontSize: 22),
             ),
-            SizedBox(
+            const SizedBox(
               height: 4,
             ),
             Text.rich(
               TextSpan(
-                text: "\$52",
+                text: "\$${space.price}",
                 style: purpleTextStyle.copyWith(fontSize: 16),
                 children: [
                   TextSpan(
@@ -101,7 +113,7 @@ class SpaceDetail extends StatelessWidget {
             )
           ],
         ),
-        _star(4),
+        _star(space.rating),
       ],
     );
   }
@@ -114,13 +126,16 @@ class SpaceDetail extends StatelessWidget {
           "Main Facilities",
           style: regularTextStyle.copyWith(fontSize: 16),
         ),
-        SizedBox(height: 12),
+        const SizedBox(height: 12),
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            _facilityItem("kitchen", 2, "assets/icon_kitchen.png"),
-            _facilityItem("bedroom", 3, "assets/icon_bedroom.png"),
-            _facilityItem("wardrobe", 3, "assets/icon_wardrobe.png"),
+            _facilityItem(
+                "Kitchen", space.numberOfKitchens, "assets/icon_kitchen.png"),
+            _facilityItem(
+                "Bedroom", space.numberOfBedrooms, "assets/icon_bedroom.png"),
+            _facilityItem("Cupboards", space.numberOfCupboards,
+                "assets/icon_wardrobe.png"),
           ],
         )
       ],
@@ -136,10 +151,10 @@ class SpaceDetail extends StatelessWidget {
           width: 32,
           height: 32,
         ),
-        SizedBox(height: 8),
+        const SizedBox(height: 8),
         Text.rich(
           TextSpan(
-            text: "$count",
+            text: "$count ",
             style: purpleTextStyle.copyWith(
               fontSize: 14,
             ),
@@ -163,48 +178,45 @@ class SpaceDetail extends StatelessWidget {
           "Photos",
           style: regularTextStyle.copyWith(fontSize: 16),
         ),
-        SizedBox(
+        const SizedBox(
           height: 12,
         ),
         Container(
           height: 88,
-          child: ListView(
+          child: ListView.separated(
+            shrinkWrap: true,
+            physics: const ClampingScrollPhysics(),
             scrollDirection: Axis.horizontal,
-            children: [
-              _photoThumbnail(
-                "assets/photo_1.png",
-              ),
-              SizedBox(width: 18),
-              _photoThumbnail(
-                "assets/photo_2.png",
-              ),
-              SizedBox(width: 18),
-              _photoThumbnail(
-                "assets/photo_3.png",
-              ),
-            ],
+            itemBuilder: (BuildContext context, int index) {
+              return _photoThumbnail(space.photos[index]);
+            },
+            separatorBuilder: (BuildContext context, int index) {
+              return const SizedBox(width: 8);
+            },
+            itemCount: space.photos.length,
           ),
         )
       ],
     );
   }
 
-  Widget _photoThumbnail(String image) {
+  Widget _photoThumbnail(String imageUrl) {
     return ClipRRect(
-      borderRadius: BorderRadius.all(
+      borderRadius: const BorderRadius.all(
         Radius.circular(8),
       ),
       child: Container(
-        child: Image.asset(
-          image,
+        child: Image.network(
+          imageUrl,
           width: 110,
           height: 88,
+          fit: BoxFit.fill,
         ),
       ),
     );
   }
 
-  Widget _location(String address) {
+  Widget _location(BuildContext context) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -212,20 +224,19 @@ class SpaceDetail extends StatelessWidget {
           "Location",
           style: regularTextStyle.copyWith(fontSize: 16),
         ),
-        SizedBox(
+        const SizedBox(
           height: 6,
         ),
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             Text(
-              address,
+              "${space.address}\n${space.city}",
               style: greyTextStyle.copyWith(fontSize: 14),
             ),
             InkWell(
               onTap: () {
-                _launchUrl(
-                    "https://www.google.com/maps/place/Hotel+Kuretakeso+Kemang/@-6.2540649,106.8141966,15z");
+                _launchUrl(context, space.mapUrl);
               },
               child: Image.asset(
                 "assets/btn_map.png",

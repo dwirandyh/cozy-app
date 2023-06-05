@@ -1,31 +1,12 @@
 import 'package:cozy_app/colors.dart';
 import 'package:cozy_app/detail/detail_page.dart';
+import 'package:cozy_app/model/space.dart';
 import 'package:flutter/material.dart';
 
-class Space {
-  String name;
-  String imageUrl;
-  String city;
-  String country;
-  int price;
-  int rating;
-
-  Space(this.name, this.imageUrl, this.city, this.country, this.price,
-      this.rating);
-}
-
 class RecommendedSpace extends StatelessWidget {
-  List<Space> spaces = [
-    Space(
-        "Kuretakeso Hott", "assets/space1.png", "Bandung", "Indonesia", 52, 4),
-    Space("Roemah Nenek", "assets/space2.png", "Bogor", "Indonesia", 11, 5),
-    Space("Darrling How", "assets/space3.png", "Bandung", "Indonesia", 52, 4),
-    Space(
-        "Kuretakeso Hott", "assets/space1.png", "Bandung", "Indonesia", 52, 4),
-    Space("Kuretakeso Hott", "assets/space1.png", "Bandung", "Indonesia", 52, 4)
-  ];
+  List<Space> spaces = [];
 
-  RecommendedSpace({Key? key}) : super(key: key);
+  RecommendedSpace(this.spaces);
 
   @override
   Widget build(BuildContext context) {
@@ -49,7 +30,7 @@ class RecommendedSpace extends StatelessWidget {
                 Navigator.push(
                   context,
                   MaterialPageRoute(
-                    builder: (context) => const DetailPage(),
+                    builder: (context) => DetailPage(spaces[index]),
                   ),
                 );
               },
@@ -75,7 +56,12 @@ class RecommendedSpace extends StatelessWidget {
             borderRadius: BorderRadius.circular(18),
             child: Stack(
               children: [
-                Image.asset(space.imageUrl),
+                Image.network(
+                  space.imageUrl,
+                  width: 130,
+                  height: 110,
+                  fit: BoxFit.cover,
+                ),
                 Align(
                   alignment: Alignment.topRight,
                   child: Container(

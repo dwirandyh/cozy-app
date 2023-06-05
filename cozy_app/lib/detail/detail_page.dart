@@ -1,8 +1,11 @@
 import 'package:cozy_app/detail/space_detail.dart';
+import 'package:cozy_app/model/space.dart';
 import 'package:flutter/material.dart';
 
 class DetailPage extends StatelessWidget {
-  const DetailPage({Key? key}) : super(key: key);
+  Space space;
+
+  DetailPage(this.space);
 
   @override
   Widget build(BuildContext context) {
@@ -14,7 +17,7 @@ class DetailPage extends StatelessWidget {
             _thumbnail(context),
             Padding(
               padding: const EdgeInsets.only(top: 100),
-              child: SpaceDetail(),
+              child: SpaceDetail(space),
             ),
           ],
         ),
@@ -25,8 +28,8 @@ class DetailPage extends StatelessWidget {
   Widget _thumbnail(BuildContext context) {
     return Stack(
       children: [
-        Image.asset(
-          "assets/thumbnail_detail.png",
+        Image.network(
+          space.imageUrl,
           height: 350,
           width: MediaQuery.of(context).size.width,
           fit: BoxFit.fill,

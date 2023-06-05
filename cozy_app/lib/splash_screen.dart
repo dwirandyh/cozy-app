@@ -63,11 +63,12 @@ class SplashScreenPage extends StatelessWidget {
                         textStyle: whiteTextStyle.copyWith(fontSize: 18),
                       ),
                       onPressed: () {
-                        Navigator.push(
+                        Navigator.pushAndRemoveUntil(
                           context,
                           MaterialPageRoute(
                             builder: (context) => const HomeScreen(),
                           ),
+                          (Route<dynamic> route) => false,
                         );
                       },
                       child: const Text("Explore Now"),
