@@ -2,7 +2,6 @@ import 'package:cozy_app/Colors.dart';
 import 'package:cozy_app/error/error_page.dart';
 import 'package:cozy_app/model/space.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class SpaceDetail extends StatelessWidget {
@@ -211,6 +210,10 @@ class SpaceDetail extends StatelessWidget {
           width: 110,
           height: 88,
           fit: BoxFit.fill,
+          errorBuilder:
+              (BuildContext context, Object exception, StackTrace? stackTrace) {
+            return const Text('😢');
+          },
         ),
       ),
     );
