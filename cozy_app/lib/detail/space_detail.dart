@@ -210,9 +210,14 @@ class SpaceDetail extends StatelessWidget {
           width: 110,
           height: 88,
           fit: BoxFit.fill,
-          errorBuilder:
-              (BuildContext context, Object exception, StackTrace? stackTrace) {
-            return const Text('😢');
+          errorBuilder: (
+            BuildContext context,
+            Object exception,
+            StackTrace? stackTrace,
+          ) {
+            // Handle the error without rethrowing
+            // For example, return a placeholder image
+            return Image.asset('assets/photo_1.png');
           },
         ),
       ),

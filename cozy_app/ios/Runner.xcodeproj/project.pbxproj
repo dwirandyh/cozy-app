@@ -15,6 +15,7 @@
 		97C146FE1CF9000F007C117D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 97C146FD1CF9000F007C117D /* Assets.xcassets */; };
 		97C147011CF9000F007C117D /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 97C146FF1CF9000F007C117D /* LaunchScreen.storyboard */; };
 		B29CFF59CA0A7F8E7B921D4C /* Pods_RunnerTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 193AA858F3BBCEDA21A7DD3F /* Pods_RunnerTests.framework */; };
+		CA246B9C097613D3EE8CC85A /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = E636AC9C7C26E6D52FD10C09 /* GoogleService-Info.plist */; };
 		F009A69AEBDF4BE210DA13BC /* Pods_Runner.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3E297DCFE7D2709E146D4F7A /* Pods_Runner.framework */; };
 /* End PBXBuildFile section */
 
@@ -65,6 +66,7 @@
 		97C147001CF9000F007C117D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		97C147021CF9000F007C117D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		CA08D968E04A4A48022A3E46 /* Pods-RunnerTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RunnerTests.release.xcconfig"; path = "Target Support Files/Pods-RunnerTests/Pods-RunnerTests.release.xcconfig"; sourceTree = "<group>"; };
+		E636AC9C7C26E6D52FD10C09 /* GoogleService-Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "Runner/GoogleService-Info.plist"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -129,6 +131,7 @@
 				331C8082294A63A400263BE5 /* RunnerTests */,
 				36968C5DE6B561D19B531D68 /* Pods */,
 				B4D51A834514E9A4694A7BAC /* Frameworks */,
+				E636AC9C7C26E6D52FD10C09 /* GoogleService-Info.plist */,
 			);
 			sourceTree = "<group>";
 		};
@@ -263,6 +266,7 @@
 				3B3967161E833CAA004F5970 /* AppFrameworkInfo.plist in Resources */,
 				97C146FE1CF9000F007C117D /* Assets.xcassets in Resources */,
 				97C146FC1CF9000F007C117D /* Main.storyboard in Resources */,
+				CA246B9C097613D3EE8CC85A /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

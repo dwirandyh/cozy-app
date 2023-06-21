@@ -14,6 +14,9 @@ class PopularCity extends StatelessWidget {
     City("Jakarta", "assets/city1.png"),
     City("Bandung", "assets/city2.png", isFavorite: true),
     City("Surabaya", "assets/city3.png"),
+    City("Palembang", "assets/city4.png"),
+    City("Aceh", "assets/city5.png", isFavorite: true),
+    City("Bogor", "assets/city6.png"),
   ];
 
   PopularCity({Key? key}) : super(key: key);
